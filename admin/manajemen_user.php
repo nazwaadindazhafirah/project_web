@@ -1,91 +1,75 @@
-<?php
-session_start();
-include '../koneksi.php';
-
-// Proteksi halaman: hanya admin yang bisa mengakses
-if (!isset($_SESSION['id_user']) || $_SESSION['level'] !== 'admin') {
-    header("Location: ../auth/login.php");
-    exit;
-}
-
-// Ambil data user dari database
-$users = mysqli_query($conn, "SELECT * FROM user");
-?>
-
+<?php include("../koneksi.php"); ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Manajemen User - Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Manajemen User</title>
     <style>
         body {
-            background-color: #fff0f5;
             font-family: Arial, sans-serif;
+            background-color: #ffe6f0;
+            padding: 20px;
         }
         h2 {
-            color: deeppink;
+            color: #cc3366;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid #ff99cc;
+            padding: 10px;
             text-align: center;
-            margin-top: 30px;
         }
         th {
-            background-color: pink;
-            color: white;
-            text-align: center;
+            background-color: #ffb3d1;
         }
-        td {
-            text-align: center;
-        }
-        .btn-back {
-            margin: 20px;
-            background-color: deeppink;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
+        a {
+            color: #cc0066;
             text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
+            margin: 0 5px;
         }
-        .btn-back:hover {
-            background-color: hotpink;
+        .btn {
+            padding: 8px 15px;
+            background-color: #ff66a3;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
         }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        .back {
+            background-color: #999;
         }
     </style>
 </head>
 <body>
+    <h2>Manajemen User</h2>
+    <a class="btn" href="tambah_user.php">+ Tambah User</a>
+    <a class="btn back" href="dashboard.php">← Kembali ke Dashboard</a>
+    <br><br>
 
-<a href="dashboard.php" class="btn-back">⬅ Kembali ke Dashboard</a>
-
-<div class="container mt-3">
-    <h2>Daftar User Terdaftar</h2>
-    <table class="table table-bordered mt-4">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Nama</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Level</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php $no = 1; while ($u = mysqli_fetch_assoc($users)): ?>
-                <tr>
-                    <td><?= $no++ ?></td>
-                    <td><?= htmlspecialchars($u['nama']) ?></td>
-                    <td><?= htmlspecialchars($u['username']) ?></td>
-                    <td><?= htmlspecialchars($u['email']) ?></td>
-                    <td><?= htmlspecialchars($u['level']) ?></td>
-                </tr>
-            <?php endwhile; ?>
-        </tbody>
+    <table>
+        <tr>
+            <th>ID</th><th>Nama</th><th>Email</th><th>Role</th><th>Aksi</th>
+        </tr>
+        <?php
+        $result = mysqli_query($conn, "SELECT * FROM user");
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>
+                <td>{$row['id_user']}</td>
+                <td>{$row['nama']}</td>
+                <td>{$row['email']}</td>
+                <td>{$row['role']}</td>
+                <td>
+                    <a href='edit_user.php?id_user={$row['id_user']}'>Edit</a> |
+                    <a href='hapus_user.php?id_user={$row['id_user']}' onclick=\"return confirm('Yakin mau hapus?')\">Hapus</a>
+                </td>
+            </tr>";
+        }
+        ?>
     </table>
-</div>
-
 </body>
 </html>
