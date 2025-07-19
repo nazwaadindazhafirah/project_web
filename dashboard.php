@@ -312,6 +312,8 @@ $nama = $data['nama'];
             <a href="ulasan.php">Ulasan</a>
             <a href="laporan_transaksi.php">Laporan Transaksi</a> <!-- Tambahan tombol laporan -->
             <a href="logout.php">Logout</a>
+            <a href="wishlist.php">Wishlist</a>
+            <a href="notifikasi.php">Notifikasi</a>
         </div>
 
         <!-- Main Content -->
