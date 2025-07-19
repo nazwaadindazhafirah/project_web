@@ -17,33 +17,58 @@ if ($row = mysqli_fetch_assoc($user)) {
 // Proses kirim ulasan
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isi_ulasan'])) {
     $isi_ulasan = mysqli_real_escape_string($conn, $_POST['isi_ulasan']);
-
-    mysqli_query($conn, "INSERT INTO ulasan (id_user, isi_ulasan) 
-                         VALUES ('$id_user', '$isi_ulasan')");
+    mysqli_query($conn, "INSERT INTO ulasan (id_user, isi_ulasan) VALUES ('$id_user', '$isi_ulasan')");
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+    <meta charset="UTF-8">
     <title>Ulasan - Nazwaazhf Skincare</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #fff0f5; }
-        h2 { color: deeppink; text-align: center; margin: 20px 0; }
-        .btn-pink { background-color: hotpink; border: none; color: white; }
+        body {
+            background-color: #fff0f5;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        h2, h4 {
+            color: deeppink;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .btn-pink {
+            background-color: hotpink;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+        .btn-pink:hover {
+            background-color: deeppink;
+        }
         .ulasan-box {
             border: 2px solid pink;
             border-radius: 10px;
             padding: 15px;
             background-color: #fff;
             margin-bottom: 15px;
-            box-shadow: 0 0 8px pink;
+            box-shadow: 0 0 8px rgba(255, 105, 180, 0.3);
         }
-        .ulasan-box h6 { color: deeppink; margin-bottom: 5px; }
+        .ulasan-box h6 {
+            color: deeppink;
+            margin-bottom: 5px;
+        }
+        textarea.form-control {
+            border: 2px solid pink;
+            border-radius: 10px;
+            box-shadow: 0 0 5px pink;
+        }
     </style>
 </head>
 <body>
+
 <div class="container mt-4">
     <a href="dashboard.php" class="btn btn-pink mb-3">⬅ Kembali ke Dashboard</a>
     <h2>Berikan Ulasanmu ✨</h2>
@@ -51,10 +76,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isi_ulasan'])) {
     <!-- Form Ulasan -->
     <form method="POST" class="mb-4">
         <div class="mb-3">
-            <label for="isi_ulasan" class="form-label">Ulasan</label>
-            <textarea class="form-control" id="isi_ulasan" name="isi_ulasan" rows="3" required></textarea>
+            <label for="isi_ulasan" class="form-label">Tulis Ulasan Kamu</label>
+            <textarea class="form-control" id="isi_ulasan" name="isi_ulasan" rows="3" required placeholder="Ceritakan pengalamanmu dengan skincare kami..."></textarea>
         </div>
-        <button type="submit" class="btn btn-pink">Kirim Ulasan</button>
+        <button type="submit" class="btn btn-pink">🌸 Kirim Ulasan</button>
     </form>
 
     <!-- Daftar Ulasan -->
@@ -69,8 +94,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['isi_ulasan'])) {
             <p><?= nl2br(htmlspecialchars($u['isi_ulasan'])) ?></p>
         </div>
     <?php endwhile; else: ?>
-        <p class="text-muted">Belum ada ulasan yang kamu kirimkan 😊</p>
+        <p class="text-muted text-center">Belum ada ulasan yang kamu kirimkan 😊</p>
     <?php endif; ?>
 </div>
+
 </body>
 </html>
