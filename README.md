@@ -22,7 +22,7 @@ _A Modern E-Commerce Platform for Skincare Products_
 |  🎯 **Information**  | 📋 **Details**                             |
 | :------------------: | :----------------------------------------- |
 |     👤 **Name**      | Nazwa Adinda Zhafirah                      |
-|  🎓 **Student ID**   | 202312056                                  |
+|  🎓 **Student ID**   | 202312047                                  |
 |     📧 **Email**     | `zhafirahnazwaadinda@gmail.com`            |
 | 📚 **Study Program** | Teknik Informatika                         |
 |  🏫 **Institution**  | Sekolah Tinggi Teknologi Bontang           |
